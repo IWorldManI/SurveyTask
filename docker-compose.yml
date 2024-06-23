@@ -1,0 +1,24 @@
+version: '3.4'
+
+services:
+  surveytask:
+    image: ${DOCKER_REGISTRY-}surveytask
+    build:
+      context: .
+      dockerfile: SurveyTask/Dockerfile
+    depends_on:
+      - db
+  db:
+    image: postgres:latest
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 223697
+      POSTGRES_DB: SurveyTask 
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data 
+
+volumes:
+  pgdata:
